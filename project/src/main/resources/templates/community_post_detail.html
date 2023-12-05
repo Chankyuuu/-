@@ -1,0 +1,183 @@
+<!--<h1 th:text="${Community_post.subject}"></h1>
+<div th:text="${Community_post.content}"></div>
+<div th:if="${param.error != null}" class="alert alert-danger">
+    <p th:text="${param.error}"></p>
+</div>
+<form th:action="@{|/community_post/edit/${Community_post.id}|}" method="get">
+    <h5 class="my-3 border-bottom pb-2"></h5>
+    <input type="submit" value="편집" class="btn btn-primary my-2">
+</form>
+<form th:action="@{/community_post/delete/{id}(id=${Community_post.id})}" method="post">
+    <div class="mb-3">
+        <label for="password" class="form-label">비밀번호</label>
+        <input type="password" name="password" id="password" class="form-control" required>
+    </div>
+    <input type="submit" value="게시글 삭제" class="btn btn-danger">
+</form>
+<h5 th:text="|${#lists.size(Community_post.commentList)}개의 답변이 있습니다.|"></h5>
+<div>
+    <ul>
+        <li th:each="Community_comment : ${Community_post.commentList}" th:text="${Community_comment.content}"></li>
+    </ul>
+</div>
+<form th:action="@{|/community_comment/create/${Community_post.id}|}" method="post">
+    <h5 class="my-3 border-bottom pb-2">댓글내용    댓글비밀번호</h5>
+    <textarea name="content" id="content" rows="1"></textarea>
+    <textarea name="password" id="password" rows="1"></textarea>
+    <input type="submit" value="댓글등록">
+</form>-->
+
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커뮤니티 게시물 상세보기</title>
+
+    <!-- 간단한 스타일 추가 -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* 편집 버튼을 상대적 위치로 설정 */
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        div {
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 8px 12px; /* 버튼 크기를 작게 조절 */
+            text-decoration: none;
+            background-color: #3498db;
+            color: #fff;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-danger {
+            background-color: #d9534f;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            border: 1px solid #ddd;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        textarea {
+            width: calc(100% - 10px);
+            margin-bottom: 10px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        #content {
+            height: 100px; /* 댓글 내용 높이 조절 */
+        }
+
+        #password, #delete-password {
+            width: calc(50% - 10px); /* 댓글 비밀번호 폭 조절 */
+            margin-right: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 8px;
+            display: inline-block;
+        }
+
+        .delete-form {
+            text-align: right;
+            margin-top: 10px; /* 입력칸과 버튼이 한 줄로 나오도록 조절 */
+        }
+
+        .comment-date {
+            font-size: 80%;
+            color: #777;
+        }
+
+        /* 편집 버튼 위치 조절 */
+        .edit-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 th:text="${Community_post.subject}"></h1>
+
+    <!-- 편집 버튼 위치 조절 -->
+    <form th:action="@{|/community_post/edit/${Community_post.id}|}" method="get" class="edit-btn">
+        <input type="submit" value="편집" class="btn btn-primary">
+    </form>
+
+    <div th:text="${Community_post.content}"></div>
+
+    <div th:if="${param.error != null}" class="alert alert-danger">
+        <p th:text="${param.error}"></p>
+    </div>
+
+    <form th:action="@{/community_post/delete/{id}(id=${Community_post.id})}" method="post" class="delete-form">
+        <div class="mb-3">
+            <input type="password" name="password" id="delete-password" rows="1" placeholder="삭제 비밀번호" class="form-control" required>
+        </div>
+        <input type="submit" value="게시글 삭제" class="btn btn-danger">
+    </form>
+
+    <h5 th:text="|${#lists.size(Community_post.commentList)}개의 코멘트가 있습니다.|"></h5>
+
+    <div>
+        <ul>
+            <li th:each="Community_comment : ${Community_post.commentList}">
+                <div>
+                    <span th:text="${Community_comment.content}"></span>
+                    <span class="comment-date" th:text="${Community_comment.createDate}"></span>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <form th:action="@{|/community_comment/create/${Community_post.id}|}" method="post">
+        <h5 class="my-3 border-bottom pb-2">코멘트 입력</h5>
+        <textarea name="content" id="content" rows="3"></textarea>
+        <input type="password" name="password" id="password" rows="1" placeholder="코멘트 비밀번호">
+        <input type="submit" value="코멘트 등록" class="btn btn-primary">
+    </form>
+</div>
+
+</body>
+</html>

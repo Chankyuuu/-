@@ -1,0 +1,161 @@
+<!--<table>
+    <thead>
+        <tr>
+            <th>제목</th>
+            <th>작성일시</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="Community_post : ${community_postList}">
+            <td>
+                <a th:href="@{|/community_post/detail/${Community_post.id}|}" th:text="${Community_post.subject}"></a>
+            </td>
+            <td th:text="${Community_post.createDate}"></td>
+        </tr>
+    </tbody>
+</table>
+<form th:action="@{/community_post/search}" method="post">
+    <label for="keyword">검색어:</label>
+    <input type="text" id="keyword" name="keyword">
+    
+    <label for="searchOption">검색 옵션:</label>
+    <select id="searchOption" name="searchOption">
+        <option value="title">제목</option>
+        <option value="titleAndContent">제목과 내용</option>
+    </select>
+    
+    <button type="submit">검색</button>
+</form>
+<a th:href="@{/community_post/create}" class="btn btn-primary">글 등록하기</a>
+-->
+
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>김찬우 커뮤니티</title>
+
+    <!-- 간단한 스타일 추가 -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .post-list table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .post-list th, .post-list td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .post-list th {
+            background-color: #f2f2f2;
+        }
+
+        .search-form-section, .create-post-button-section {
+            margin-bottom: 20px;
+        }
+
+        .search-form label, .search-form select, .search-form input, .search-form button {
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* 검색어 입력 칸의 너비를 조절 */
+        .search-form #keyword {
+            width: 100px;
+        }
+
+        /* 제목 칸을 더 넓게 조절 */
+        .post-list th:first-child {
+            width: 60%;
+        }
+
+        /* 작성일시 칸을 좁게 조절 */
+        .post-list th:last-child {
+            width: 40%;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #3498db;
+            color: #fff;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>김찬우 커뮤니티</h2>
+
+    <section class="post-list">
+        <table>
+            <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>작성일시</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="communityPost : ${community_postList}">
+                    <td>
+                        <a th:href="@{|/community_post/detail/${communityPost.id}|}" th:text="${communityPost.subject}"></a>
+                    </td>
+                    <td th:text="${communityPost.createDate}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="search-form-section">
+        <form th:action="@{/community_post/search}" method="post" class="search-form">
+            <label for="keyword">검색어:</label>
+            <input type="text" id="keyword" name="keyword">
+
+            <select id="searchOption" name="searchOption">
+                <option value="title">제목</option>
+                <option value="titleAndContent">제목과 내용</option>
+            </select>
+
+            <button type="submit" class="btn">검색</button>
+        </form>
+    </section>
+
+    <section class="create-post-button-section">
+        <a th:href="@{/community_post/create}" class="btn btn-primary">글 등록하기</a>
+    </section>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bug Detail</title>
+
+    <!-- 간단한 스타일 추가 -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .gallery img {
+            max-width: calc(33.33% - 10px);
+            height: auto;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        .gallery img:hover {
+            opacity: 0.7;
+        }
+
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 80%;
+            max-height: 80%;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .lightbox img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .lightbox.show {
+            display: block;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .section-content {
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 th:text="${Bug_detail.name}"></h1>
+
+    <div class="gallery">
+        <img class="gallery-img" th:if="${Bug_detail.img_url_0 != null}" th:src="${Bug_detail.img_url_0}" alt="Bug Image">
+        <img class="gallery-img" th:if="${Bug_detail.img_url_1 != null}" th:src="${Bug_detail.img_url_1}" alt="Bug Image">
+        <img class="gallery-img" th:if="${Bug_detail.img_url_2 != null}" th:src="${Bug_detail.img_url_2}" alt="Bug Image">
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <img class="lightbox-img" id="lightbox-img">
+    </div>
+
+    <div class="section">
+        <div class="section-title">상세정보</div>
+        <div class="section-content" th:text="${Bug_detail.detail}"></div>
+    </div>
+
+    <div class="section">
+        <div class="section-title">방제법</div>
+        <div class="section-content" th:text="${Bug_detail.howtokill}"></div>
+    </div>
+
+</div>
+
+<!-- JavaScript 추가 -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const galleryImgs = document.querySelectorAll('.gallery-img');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+
+        galleryImgs.forEach(img => {
+            img.addEventListener('click', function () {
+                lightboxImg.src = this.src;
+                lightbox.classList.add('show');
+            });
+        });
+
+        lightbox.addEventListener('click', function () {
+            lightbox.classList.remove('show');
+        });
+    });
+</script>
+
+</body>
+</html>

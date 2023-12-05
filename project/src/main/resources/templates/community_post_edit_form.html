@@ -1,0 +1,113 @@
+<!--<div layout:fragment="content" class="container">
+    <h5 class="my-3 border-bottom pb-2">글 수정</h5>
+    <form th:action="@{/community_post/edit/{id}(id=${post.id})}" method="post">
+        <div class="mb-3">
+            <label for="subject" class="form-label">제목</label>
+            <input type="text" name="subject" id="subject" class="form-control" th:value="${post.subject}">
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">내용</label>
+            <textarea name="content" id="content" class="form-control" rows="10" th:text="${post.content}"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">비밀번호</label>
+            <input type="password" name="password" id="password" class="form-control">
+        </div>
+        <input type="submit" value="수정하기" class="btn btn-primary my-2">
+    </form>
+</div>-->
+
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>커뮤니티 게시물 수정</title>
+
+    <!-- 간단한 스타일 추가 -->
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h5 {
+            color: #333;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            text-decoration: none;
+            background-color: #3498db;
+            color: #fff;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        .mb-3 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="my-3 border-bottom pb-2">글 수정하기</h5>
+    <form th:action="@{/community_post/edit/{id}(id=${post.id})}" method="post">
+        <div class="mb-3">
+            <label for="subject" class="form-label">제목</label>
+            <input type="text" name="subject" id="subject" class="form-control" th:value="${post.subject}">
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">내용</label>
+            <textarea name="content" id="content" class="form-control" rows="10" th:text="${post.content}"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">비밀번호</label>
+            <input type="password" name="password" id="password" class="form-control">
+        </div>
+        <input type="submit" value="수정하기" class="btn btn-primary my-2">
+    </form>
+</div>
+
+</body>
+</html>
